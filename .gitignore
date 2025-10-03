@@ -8,6 +8,7 @@
 *.classpath
 .settings/
 nbproject/
+test.sh
 
 # ===================================================================
 # Java & Gradle (Backend)
