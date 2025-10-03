@@ -1,0 +1,1 @@
+.form-container{display:flex;justify-content:center;align-items:center;padding-top:50px;} mat-card{width:400px;} form{display:flex;flex-direction:column;} mat-form-field{width:100%;} button{margin-top:16px;} .error-message{color:red;font-size:0.9em;margin-top:8px;}

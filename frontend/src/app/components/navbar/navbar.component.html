@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <a routerLink="/" class="logo"><mat-icon>health_and_safety</mat-icon><span>MedScheduler</span></a>
+  <span class="spacer"></span>
+  @if (!authService.isLoggedIn()) {
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  } @else {
+    <a mat-button routerLink="/doctors">Find a Doctor</a>
+    <a mat-button routerLink="/patient-dashboard">Dashboard</a>
+    <button mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
+  }
+</mat-toolbar>

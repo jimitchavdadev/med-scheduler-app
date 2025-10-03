@@ -1,0 +1,1 @@
+.doctor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;} .doctor-card{display:flex;flex-direction:column;} mat-card-actions{margin-top:auto;}
