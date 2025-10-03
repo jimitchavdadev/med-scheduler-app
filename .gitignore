@@ -1,24 +1,73 @@
-# Compiled class file
+# ===================================================================
+# IDE and Editor Directories
+# ===================================================================
+.idea/
+.vscode/
+*.iml
+*.project
+*.classpath
+.settings/
+nbproject/
+
+# ===================================================================
+# Java & Gradle (Backend)
+# ===================================================================
+# Gradle cache
+.gradle/
+
+# Build output
+build/
+
+# Compiled class files and archives
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
-*.nar
 *.ear
+
+# Hotspot VM crash logs
+hs_err_pid*
+replay_pid*
+
+# ===================================================================
+# Node & Angular (Frontend)
+# ===================================================================
+# Node modules
+node_modules/
+
+# Angular build output
+dist/
+
+# Angular cache
+.angular/cache
+
+# Test coverage reports
+coverage/
+
+# Log files
+npm-debug.log*
+yarn-error.log
+yarn-debug.log
+
+# ===================================================================
+# General Build Artifacts & Logs
+# ===================================================================
+# Generic log files
+*.log
+
+# Compressed files
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# ===================================================================
+# Operating System Files
+# ===================================================================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Linux
+*~
