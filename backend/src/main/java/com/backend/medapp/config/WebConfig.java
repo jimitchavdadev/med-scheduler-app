@@ -9,10 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**") // Apply CORS policy to all endpoints under /api
-                .allowedOrigins("http://localhost:4200") // Allow requests from the Angular app
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
-                .allowedHeaders("*") // Allow all headers
-                .allowCredentials(true); // Allow credentials (e.g., cookies, authorization headers)
+        registry.addMapping("/api/**") // This applies the rule to all your API endpoints
+                .allowedOrigins("http://localhost:4200") // Trust requests from the Angular app
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
