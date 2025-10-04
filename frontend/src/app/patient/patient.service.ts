@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { ProfileRequest } from './profile-request';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PatientService {
-  private mockProfiles: { [key: string]: ProfileRequest } = {
-    'patient@test.com': {
-      firstName: 'John',
-      lastName: 'Doe',
-      dateOfBirth: '1990-01-01'
+    private apiUrl = `${environment.apiUrl}/patients`;
+
+    constructor(private http: HttpClient) {}
+
+    createOrUpdateProfile(profile: ProfileRequest): Observable<any> {
+        return this.http.post(`${this.apiUrl}/profile`, profile);
     }
-  };
 
-  createOrUpdateProfile(profile: ProfileRequest): Observable<{ message: string }> {
-    this.mockProfiles['current'] = profile;
-    return of({ message: 'Profile saved successfully' }).pipe(delay(500));
-  }
-
-  getProfile(): Observable<ProfileRequest | null> {
-    const profile = this.mockProfiles['current'] || this.mockProfiles['patient@test.com'];
-    return of(profile).pipe(delay(500));
-  }
+    getProfile(): Observable<ProfileRequest> {
+        return this.http.get<ProfileRequest>(`${this.apiUrl}/profile`);
+    }
 }

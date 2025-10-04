@@ -4,12 +4,11 @@ import com.backend.medapp.dto.DoctorDto;
 import com.backend.medapp.dto.ProfileRequestDto;
 import com.backend.medapp.exception.ResourceNotFoundException;
 import com.backend.medapp.model.DoctorProfile;
-import com.backend.medapp.model.Role;
-import com.backend.medapp.model.User;
 import com.backend.medapp.repository.DoctorProfileRepository;
 import com.backend.medapp.repository.UserRepository;
+import com.backend.medapp.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException; // Import Exception
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class DoctorService {
 
     public List<DoctorDto> getAllDoctors(String specialty) {
         List<DoctorProfile> profiles;
-        if (specialty != null && !specialty.isEmpty()) {
+        if (specialty != null && !specialty.trim().isEmpty()) {
             profiles = doctorProfileRepository.findBySpecialtyContainingIgnoreCase(specialty);
         } else {
             profiles = doctorProfileRepository.findAll();
@@ -32,15 +31,20 @@ public class DoctorService {
         return profiles.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
+    public DoctorDto getProfile(User user) {
+        DoctorProfile profile = doctorProfileRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor profile not found for user ID: " + user.getId()));
+        return mapToDto(profile);
+    }
+
     public DoctorDto createOrUpdateProfile(User user, ProfileRequestDto profileDto) {
-        // Fetch a managed instance of the user
         User managedUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         DoctorProfile profile = doctorProfileRepository.findByUserId(user.getId())
                 .orElse(new DoctorProfile());
 
-        profile.setUser(managedUser); // Use the managed user instance
+        profile.setUser(managedUser);
         profile.setFirstName(profileDto.getFirstName());
         profile.setLastName(profileDto.getLastName());
         profile.setSpecialty(profileDto.getSpecialty());

@@ -1,6 +1,7 @@
 package com.backend.medapp.service;
 
 import com.backend.medapp.dto.ProfileRequestDto;
+import com.backend.medapp.exception.ResourceNotFoundException;
 import com.backend.medapp.model.PatientProfile;
 import com.backend.medapp.model.User;
 import com.backend.medapp.repository.PatientProfileRepository;
@@ -14,6 +15,11 @@ import org.springframework.stereotype.Service;
 public class PatientService {
     private final PatientProfileRepository patientProfileRepository;
     private final UserRepository userRepository;
+
+    public PatientProfile getProfile(User user) {
+        return patientProfileRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient profile not found for user ID: " + user.getId()));
+    }
 
     public PatientProfile createOrUpdateProfile(User user, ProfileRequestDto profileDto) {
         User managedUser = userRepository.findById(user.getId())

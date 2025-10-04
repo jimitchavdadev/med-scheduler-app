@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -20,6 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PatientController {
 
     private final PatientService patientService;
+
+    @GetMapping("/profile")
+    @PreAuthorize("hasAuthority('PATIENT')")
+    public ResponseEntity<PatientProfile> getProfile(@AuthenticationPrincipal User user) {
+        PatientProfile profile = patientService.getProfile(user);
+        return ResponseEntity.ok(profile);
+    }
 
     @PostMapping("/profile")
     @PreAuthorize("hasAuthority('PATIENT')")

@@ -25,6 +25,13 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.getAllDoctors(specialty));
     }
 
+    @GetMapping("/profile")
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<DoctorDto> getProfile(@AuthenticationPrincipal User user) {
+        DoctorDto profile = doctorService.getProfile(user);
+        return ResponseEntity.ok(profile);
+    }
+
     @PostMapping("/profile")
     @PreAuthorize("hasAuthority('DOCTOR')")
     public ResponseEntity<DoctorDto> createOrUpdateProfile(
