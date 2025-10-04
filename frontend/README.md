@@ -1,59 +1,155 @@
-# Frontend
+# MedScheduler Frontend Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+A complete Angular single-page application (SPA) for medical appointment scheduling with role-based access control, responsive design, and dark mode support.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Authentication System**: Login/Register with JWT token management
+- **Role-Based Access**: Separate interfaces for Patients and Doctors
+- **Patient Features**:
+  - Profile management (name, date of birth)
+  - Browse available doctors with filtering
+  - Book appointments with doctors
+  - View appointment history
+- **Doctor Features**:
+  - Profile management (name, specialty, qualifications)
+  - View scheduled appointments
+- **UI/UX**:
+  - Angular Material components
+  - Responsive design (mobile-friendly)
+  - Dark/Light theme toggle
+  - Smooth animations and transitions
 
-```bash
-ng serve
+## Technology Stack
+
+- Angular 20
+- Angular Material
+- RxJS for reactive programming
+- JWT-decode for token handling
+- TypeScript
+- SCSS for styling
+
+## Mock Credentials
+
+### Patient Login
+- Email: `patient@test.com`
+- Password: `password`
+
+### Doctor Login
+- Email: `doctor@test.com`
+- Password: `password`
+
+## Project Structure
+
+```
+src/app/
+├── auth/                    # Authentication module
+│   ├── login/              # Login component
+│   ├── register/           # Register component
+│   └── auth.service.ts     # Authentication service with mock data
+├── patient/                # Patient module
+│   ├── profile/            # Patient profile component
+│   └── patient.service.ts  # Patient service with mock data
+├── doctor/                 # Doctor module
+│   ├── doctor-list/        # Doctor list component
+│   ├── profile/            # Doctor profile component
+│   └── doctor.service.ts   # Doctor service with mock data
+├── appointment/            # Appointment module
+│   ├── book-appointment/   # Book appointment component
+│   ├── my-appointments/    # Appointments list component
+│   └── appointment.service.ts # Appointment service with mock data
+├── shared/                 # Shared components and services
+│   ├── header/            # Header with navigation
+│   ├── sidebar/           # Sidebar navigation
+│   ├── footer/            # Footer component
+│   ├── theme.service.ts   # Theme management
+│   └── http-error.service.ts # Error handling
+└── core/                   # Core functionality
+    ├── guards/            # Route guards (auth, role)
+    └── interceptors/      # HTTP interceptors (JWT)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
+### Prerequisites
+- Node.js (v18 or higher)
+- npm (v9 or higher)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Installation
 
+1. Install dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+2. Start the development server:
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+The application will open at `http://localhost:4200/`
 
-To build the project run:
+### Available Scripts
 
-```bash
-ng build
-```
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm run watch` - Build in watch mode
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Key Features Explained
 
-## Running unit tests
+### Authentication
+- Uses mock JWT tokens stored in localStorage
+- Automatic token injection via HTTP interceptor
+- Role-based routing and UI rendering
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Mock Data
+- All services use in-memory mock data with simulated API delays
+- No backend required - fully functional frontend demo
 
-```bash
-ng test
-```
+### Responsive Design
+- Collapsible sidebar on mobile devices (< 768px)
+- Responsive tables with pagination and sorting
+- Mobile-optimized forms and layouts
 
-## Running end-to-end tests
+### Theme System
+- Toggle between light and dark modes
+- Persistent theme preference in localStorage
+- Material Design color scheme
 
-For end-to-end (e2e) testing, run:
+## Routes
 
-```bash
-ng e2e
-```
+### Public Routes
+- `/auth/login` - Login page
+- `/auth/register` - Registration page
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Patient Routes (requires PATIENT role)
+- `/patient/profile` - Patient profile management
+- `/doctors` - Browse available doctors
+- `/appointment/book` - Book new appointment
+- `/appointment/my` - View appointments
 
-## Additional Resources
+### Doctor Routes (requires DOCTOR role)
+- `/doctor/profile` - Doctor profile management
+- `/appointment/my` - View appointments
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Development Notes
+
+- All components are standalone for better tree-shaking
+- Routes use lazy loading for optimal performance
+- Forms use reactive forms with validation
+- RxJS operators for debouncing and filtering
+- Material Design principles throughout
+
+## Mock Data Details
+
+### Doctors
+- 4 mock doctors with different specialties (Cardiology, Neurology, Pediatrics, Orthopedics)
+
+### Appointments
+- Pre-populated appointment history
+- Status tracking (SCHEDULED, COMPLETED, CANCELLED)
+- Color-coded status chips
+
+### Profiles
+- Default patient profile (John Doe)
+- Default doctor profile (Alice Smith)
